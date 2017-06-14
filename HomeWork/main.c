@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "conio.h"
 #include "string.h"
-
+#include "stdlib.h"
 //初始化原始密码，定义字符数组
 char password[7] = "hello", password0[7] = "张三";
 char str[7] = "\0", str1[7];
@@ -94,7 +94,7 @@ snstart:
 			printf("新密码设置成功！\n");
 			strcpy(password, str1);
 		}
-		else
+		else 
 		{
 			printf("两次输入的密码不同，请重新输入！\n");
 			goto setsn;
