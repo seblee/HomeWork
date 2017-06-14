@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "conio.h"
 #include "string.h"
+#include "stdlib.h"
 
 //初始化原始密码，定义字符数组
 char password[7] = "hello", password0[7] = "张三";
@@ -8,32 +9,34 @@ char str[7] = "\0", str1[7];
 char DisplayGUI(void);
 void Login(void);
 void ChangePIN(void);
-main()
+int main(void)
 {
 	start:
 	switch (DisplayGUI() - '0')
 	{
 	case 1:Login(); break;
 	case 2:ChangePIN(); break;
-	case 3:exit(0); break;
+	case 3:/*exit(0);*/goto exeend; break;
 	default:
 		break;
 	}
 	system("cls");
 	goto start;
+exeend:
+	system("pause");
 	//输入密码	
 }
 
 char DisplayGUI(void)	//输出界面
 {
 	char Cache;
-	printf("********************\n");
-	printf("****个人账户管理*****\n");
-	printf("********************\n\n");
-	printf("********************\n");
-	printf("****1-账户登录*******\n");
-	printf("****2-修改密码*******\n");
-	printf("****3-退出***********\n");
+	printf("**********************\n");
+	printf("*****个人账户管理*****\n");
+	printf("**********************\n\n");
+	printf("**********************\n");
+	printf("******1-账户登录******\n");
+	printf("******2-修改密码******\n");
+	printf("******3-退出**********\n");
 	printf("**请输入您要做的操作**\n\n");
 	Cache = getch();
 	printf("%c\n",Cache);
@@ -42,6 +45,7 @@ char DisplayGUI(void)	//输出界面
 void Login(void)
 {
 	int i;
+	char Cache;
 again:
 	printf("请输入密码：\n");
 	i = 0;
@@ -55,7 +59,17 @@ again:
 
 	//判断密码
 	if (strcmp(password, str) == 0)
+	{
 		printf("密码正确！\n");
+		printf("按任意键继续....");
+		Cache = 0;
+		i = 0;
+		do
+		{
+			Cache = 0;
+			i++;
+		} while (((Cache = getch()) == '\r') && (i < 1));
+	}
 	else
 	{
 		printf("密码不正确！\n");
@@ -64,6 +78,7 @@ again:
 }
 void ChangePIN(void)
 {
+	char Cache, i = 0;
 	//提示是否修改密码
 snstart:
 	printf("是否需要修改密码？Y/N\n");
@@ -93,6 +108,12 @@ snstart:
 		{
 			printf("新密码设置成功！\n");
 			strcpy(password, str1);
+			printf("按任意键继续....");
+			do
+			{
+				Cache = 0;
+				i++;
+			} while (((Cache = getch()) == '\r') && (i < 1));
 		}
 		else
 		{
@@ -110,3 +131,4 @@ snstart:
 		goto snstart;
 	}
 }
+
